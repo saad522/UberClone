@@ -36,6 +36,46 @@ extension UIImageView {
     }
 }
 extension UIView {
+	convenience init(backgroundColor : UIColor) {
+		self.init(frame:.zero)
+		self.backgroundColor = backgroundColor
+
+	}
+}
+extension UIView {
+	convenience init(_ lineH : CGFloat,_ lineW : CGFloat) {
+		self.init(frame:.zero)
+		self.backgroundColor = .label
+		self.constrainHeight(constant: lineH)
+		self.constrainWidth(constant: lineW)
+
+	}
+}
+extension UIView {
+	convenience init(_ color : UIColor = .label,_ boxSize : CGFloat = 6) {
+		self.init(frame:.zero)
+		self.backgroundColor = color
+		self.constrainHeight(constant: boxSize)
+		self.constrainWidth(constant: boxSize)
+	}
+}
+extension UIView {
+	convenience init(_ box : CGFloat = 6) {
+		self.init(frame:.zero)
+		self.backgroundColor = .label
+		self.constrainHeight(constant: box)
+		self.constrainWidth(constant: box)
+	}
+}
+extension UIView {
+	func addShadow() {
+		layer.shadowOpacity = 0.5
+		layer.shadowRadius  = 10
+		layer.shadowOffset  = .init(width: 0, height: 10)
+		layer.cornerRadius  = 5
+	}
+}
+extension UIView {
     convenience init(_ color : UIColor = .lightGray) {
         self.init(frame:.zero)
         self.backgroundColor = color
@@ -51,11 +91,13 @@ extension UIImageView {
     }
 }
 
-enum SFSymbols {
-    static let email = "envelope"
-    static let password = "lock"
-    static let persone = "person"
-    static let type = "person.crop.square"
+extension UIButton {
+	convenience init(_ icon: String,size : CGFloat = 20,color : UIColor = .label) {
+		self.init(type: .system)
+		self.tintColor = color
+		let configuration = UIImage.SymbolConfiguration(pointSize: size, weight: .semibold, scale: .large)
+		self.setImage(UIImage(systemName: icon, withConfiguration: configuration)?.withRenderingMode(.alwaysTemplate), for: .normal)
+	}
 }
 extension UIButton {
     convenience init(title: String) {

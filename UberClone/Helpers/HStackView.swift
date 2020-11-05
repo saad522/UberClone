@@ -8,10 +8,10 @@
 import UIKit
 
 class HStackView: UIStackView {
-    init(arrangedSubviews: [UIView]) {
+	init(arrangedSubviews: [UIView] ,spacing : CGFloat = 5) {
         super.init(frame: .zero)
         arrangedSubviews.forEach({addArrangedSubview($0)})
-        self.spacing = 5
+        self.spacing = spacing
         self.axis = .horizontal
         self.alignment = .center
     }

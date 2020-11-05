@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Firebase
 
 class LoginController: UIViewController {
     
@@ -33,15 +33,36 @@ class LoginController: UIViewController {
         view.backgroundColor = .backGroundColor
         dismissKeyBoard()
         creatUI()
-        signUpAction()
+        actions()
         configNavigationController()
     }
 }
 
+//MARK: Service Firebase Login User
+extension LoginController {
+	@objc fileprivate func login() {
+		guard let email	   = emailText.text else { return }
+		guard let password = passwordText.text else { return }
+		
+		Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+			if let error = error {
+				print("Failed to Lgin with user resons :",error.localizedDescription)
+				return
+			}
+//			let homeController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? 		HomeViewController
+//			homeController?.creatUI()
+			self.dismiss(animated: true)
+			print("Alright Alright Alright user login 👍🏼")
+		}
+	}
+}
+
+
 //MARK: Handle Actions
 extension LoginController {
-    fileprivate func signUpAction() {
+    fileprivate func actions() {
         signButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+		logButton.addTarget(self, action: #selector(login), for: .touchUpInside)
     }
     
     @objc func handleSignUp() {

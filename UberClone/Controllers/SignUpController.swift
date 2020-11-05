@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpController: UIViewController {
     
@@ -81,11 +82,46 @@ extension SignUpController {
         
     }
 }
-//MARK: Handle Actions
 
+//MARK: Service Firebase Create User
+extension SignUpController {
+	@objc fileprivate func createUser()  {
+		
+		guard let email    = emailText.text    else { return }
+		guard let password = passwordText.text else { return }
+		guard let fullName = fullNameText.text else { return }
+		let accounteType = userType.selectedSegmentIndex
+		
+		Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+			if let error = error {
+				print("Error with Emil or Password resaon : ",error.localizedDescription )
+				return
+			}
+			
+			guard let uid = result?.user.uid else { return }
+			let values = ["Email":email,"Full-Name":fullName,"AccounteType":accounteType,"Password":password] as [String : Any]
+			
+			Database.database().reference().child("users").child(uid).updateChildValues(values) { (error, ref) in
+				if let error = error {
+					print("Error with Update Users Data reason : ",error.localizedDescription)
+					return
+				}
+//				let homeController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? 			HomeViewController
+//				homeController?.creatUI()
+				self.dismiss(animated: true)
+				print("Alright alright alright we did it 💪🏼")
+			}
+		}
+	}
+}
+
+
+
+//MARK: Handle Actions
 extension SignUpController {
     fileprivate func loginAction() {
         loginButton.addTarget(self, action: #selector(handleDismisseController), for: .touchUpInside)
+		signUpButton.addTarget(self, action: #selector(createUser), for: .touchUpInside)
     }
     @objc fileprivate func handleDismisseController() {
         navigationController?.popViewController(animated: true)
