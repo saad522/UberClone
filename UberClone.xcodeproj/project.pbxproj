@@ -12,6 +12,7 @@
 		0407223D2530FEA400EB9A90 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407223A2530FEA400EB9A90 /* VerticalStackView.swift */; };
 		041C38CC2530C1980014733E /* HStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C38CB2530C1980014733E /* HStackView.swift */; };
 		042B612F2553200D00FFBA8C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042B612E2553200D00FFBA8C /* HomeViewController.swift */; };
+		0454F1142555E0760088524A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0454F1132555E0760088524A /* TableViewCell.swift */; };
 		048385F625309F910082B17D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048385F525309F910082B17D /* AppDelegate.swift */; };
 		048385F825309F910082B17D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048385F725309F910082B17D /* SceneDelegate.swift */; };
 		048385FF25309F940082B17D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048385FE25309F940082B17D /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		0407223A2530FEA400EB9A90 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		041C38CB2530C1980014733E /* HStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackView.swift; sourceTree = "<group>"; };
 		042B612E2553200D00FFBA8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0454F1132555E0760088524A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		048385F225309F910082B17D /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048385F525309F910082B17D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048385F725309F910082B17D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				04D4DCF22554770B00145198 /* InputView.swift */,
 				04D4DCF825548FA900145198 /* ShowLocationInputView.swift */,
+				0454F1132555E0760088524A /* TableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0454F1142555E0760088524A /* TableViewCell.swift in Sources */,
 				041C38CC2530C1980014733E /* HStackView.swift in Sources */,
 				0407223C2530FEA400EB9A90 /* Extensions.swift in Sources */,
 				048386182530A3B40082B17D /* LoginController.swift in Sources */,

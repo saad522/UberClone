@@ -14,11 +14,16 @@ import MapKit
 class HomeViewController: UIViewController {
 	
 	//MARK: Properties
-	private let mapView 		= MKMapView()
-	private let locationManager = CLLocationManager()
-	private	let inputViews		= InputView()
-	private let menuIcon        = UIButton.init(SFSymbols.menu)
+	private let mapView 		  = MKMapView()
+	private let locationManager   = CLLocationManager()
+	private	let inputViews		  = InputView()
+	private let menuIcon          = UIButton.init(SFSymbols.menu)
 	private let locationInputView = ShowLocationInputView()
+	private let tableView		  = UITableView()
+	private let cellID			  = "cellID"
+	
+	private let heightOfLocationInputView : CGFloat = 200
+	
 	//MARK: LifeCycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -51,11 +56,35 @@ extension HomeViewController {
 		}
 	}
 }
-
+//MARK: setup TableView
+extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return section == 0 ? 2 : 5
+	}
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 2
+	}
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return section == 0 ? "Recente" : "Result"
+	}
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+		return cell
+	}
+	
+	fileprivate func configuTablrView() {
+		tableView.register(TableViewCell.self, forCellReuseIdentifier: cellID)
+		tableView.rowHeight	 = 60
+		tableView.delegate 	 = self
+		tableView.dataSource = self
+		tableView.tableFooterView = UIView()
+		let height			 = view.frame.height - heightOfLocationInputView
+		tableView.frame		 = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: height)
+		view.addSubview(tableView)
+	}
+}
 //MARK:  setup Create UI with MapView
 extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
-	
-	
 	
 	func setupNavigation() {
 		view.backgroundColor = .niceBlue
@@ -82,21 +111,24 @@ extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 		UIView.animate(withDuration: 2) {
 			self.inputViews.alpha = 1
 		}
-		// Showing User Location in the Map
+		//Showing User Location in the Map
 		showUserLocationInMap()
 		
-	
 		
 	}
 	func setupLocationInputUI() {
-		mapView.addSubview(locationInputView)
-		locationInputView.anchor(top: mapView.topAnchor, leading: mapView.leadingAnchor, bottom: nil, trailing: mapView.trailingAnchor, size: .init(width: 0, height: 200))
+		view.addSubview(locationInputView)
+		locationInputView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, size: .init(width: 0, height: 199))
 		locationInputView.delegate = self
 		locationInputView.alpha = 0
 		UIView.animate(withDuration: 0.3) {
 			self.locationInputView.alpha = 1
 		} completion: { (_) in
-			print("Presting Table View...")
+			//TableView
+			UIView.animate(withDuration: 1) {
+				self.tableView.frame.origin.y = self.heightOfLocationInputView
+				print("Presting Table View...")
+			}
 		}
 
 	}
@@ -105,17 +137,20 @@ extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 		mapView.userTrackingMode = .follow
 	}
 	func prestenLocationInputView() {
+		inputViews.alpha = 0
 		setupLocationInputUI()
+		configuTablrView()
 	}
 	func dismissLocationInputView() {
+		locationInputView.removeFromSuperview()
 		UIView.animate(withDuration: 0.3) {
 			self.locationInputView.alpha = 0
+			self.tableView.frame.origin.y = self.view.frame.height
 		} completion: { (_) in
-			UIView.animate(withDuration: 2) {
+			UIView.animate(withDuration: 0.9) {
 				self.inputViews.alpha = 1
 			}
 		}
-
 	}
 }
 
