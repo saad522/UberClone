@@ -11,17 +11,25 @@ protocol LocationInputViewDelegate: class {
 }
 class ShowLocationInputView: UIView {
 	
+	
 	//MARK: Properties
+	
+	var user : User! {
+		didSet {
+			firstName.text = user.fullName
+		}
+	}
+	
 	weak var delegate : LocationInputViewDelegate?
-	private let backButton 		 = UIButton(SFSymbols.back)
-	private let firstName  		 = UILabel.init(text: "Bruce Wayne", font: UIFont(name: "HelveticaNeue-Bold", size: 16)!)
-	private let indicatoreGreen  = UIView(.systemGreen,6)
-	private let indicatoreBlack  = UIView(.label,10)
-	private let blackLine = UIView(20, 1)
-	private let containerOne    = UIView(backgroundColor: .secondarySystemBackground)
-	private let containerTwo    = UIView(backgroundColor: .systemFill)
+	private let backButton 		     = UIButton(SFSymbols.back)
+	let firstName  				     = UILabel.init(text: "Empty", font: UIFont(name: "HelveticaNeue-Bold", size: 16)!)
+	private let indicatoreGreen      = UIView(.systemGreen,6)
+	private let indicatoreBlack      = UIView(.label,10)
+	private let blackLine 		     = UIView(20, 1)
+	private let containerOne         = UIView(backgroundColor: .secondarySystemBackground)
+	private let containerTwo     	 = UIView(backgroundColor: .systemFill)
 	private let currentLocationLabel = UITextField.init(placholder: "Current Location.",textColor: .label)
-	private let whereToLabel = UITextField.init(placholder: "Enter a destination.",textColor: .label)
+	private let whereToLabel 		 = UITextField.init(placholder: "Enter a destination.",textColor: .label)
 	
 	
 	//MARK: LifeCycle

@@ -11,6 +11,8 @@ import Firebase
 class LoginController: UIViewController {
     
     //MARK: Properties
+	var homeController : HomeViewController?
+	
     let logo = UILabel(text: "UBER", font: UIFont(name: "Avenir-Light", size: 36)!,textColor: UIColor(white: 1, alpha: 0.8))
     
     let emailText    = UITextField(placholder: "Email")
@@ -49,10 +51,12 @@ extension LoginController {
 				print("Failed to Lgin with user resons :",error.localizedDescription)
 				return
 			}
-//			let homeController = UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController as? 		HomeViewController
-//			homeController?.creatUI()
+			
+			self.homeController?.creatUI()
+			self.homeController?.fetchUser()
 			self.dismiss(animated: true)
 			print("Alright Alright Alright user login 👍🏼")
+ 
 		}
 	}
 }
@@ -60,6 +64,8 @@ extension LoginController {
 
 //MARK: Handle Actions
 extension LoginController {
+	
+	
     fileprivate func actions() {
         signButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
 		logButton.addTarget(self, action: #selector(login), for: .touchUpInside)
@@ -67,6 +73,7 @@ extension LoginController {
     
     @objc func handleSignUp() {
         let signUpController = SignUpController()
+		signUpController.homeController = homeController
         navigationController?.pushViewController(signUpController, animated: true)
         
     }

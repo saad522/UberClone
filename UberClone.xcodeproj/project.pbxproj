@@ -13,6 +13,9 @@
 		041C38CC2530C1980014733E /* HStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C38CB2530C1980014733E /* HStackView.swift */; };
 		042B612F2553200D00FFBA8C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042B612E2553200D00FFBA8C /* HomeViewController.swift */; };
 		0454F1142555E0760088524A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0454F1132555E0760088524A /* TableViewCell.swift */; };
+		0473A4392556F14400515B49 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473A4382556F14400515B49 /* Service.swift */; };
+		0473A43D2556F24D00515B49 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473A43C2556F24D00515B49 /* User.swift */; };
+		0473A440255726B700515B49 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473A43F255726B700515B49 /* LocationService.swift */; };
 		048385F625309F910082B17D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048385F525309F910082B17D /* AppDelegate.swift */; };
 		048385F825309F910082B17D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048385F725309F910082B17D /* SceneDelegate.swift */; };
 		048385FF25309F940082B17D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048385FE25309F940082B17D /* Assets.xcassets */; };
@@ -33,6 +36,9 @@
 		041C38CB2530C1980014733E /* HStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackView.swift; sourceTree = "<group>"; };
 		042B612E2553200D00FFBA8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0454F1132555E0760088524A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		0473A4382556F14400515B49 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		0473A43C2556F24D00515B49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0473A43F255726B700515B49 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		048385F225309F910082B17D /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048385F525309F910082B17D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048385F725309F910082B17D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0473A4372556F12800515B49 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0473A4382556F14400515B49 /* Service.swift */,
+				0473A43F255726B700515B49 /* LocationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		048385E925309F910082B17D = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +98,7 @@
 		048385F425309F910082B17D /* UberClone */ = {
 			isa = PBXGroup;
 			children = (
+				0473A4372556F12800515B49 /* Service */,
 				0483860E2530A28A0082B17D /* View */,
 				0483860C2530A2780082B17D /* Model */,
 				0483860D2530A2810082B17D /* Controllers */,
@@ -110,6 +126,7 @@
 		0483860C2530A2780082B17D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0473A43C2556F24D00515B49 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -268,13 +285,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0454F1142555E0760088524A /* TableViewCell.swift in Sources */,
+				0473A4392556F14400515B49 /* Service.swift in Sources */,
 				041C38CC2530C1980014733E /* HStackView.swift in Sources */,
 				0407223C2530FEA400EB9A90 /* Extensions.swift in Sources */,
 				048386182530A3B40082B17D /* LoginController.swift in Sources */,
 				04D4DCF925548FA900145198 /* ShowLocationInputView.swift in Sources */,
 				04D4DCF62554782F00145198 /* SFSymbols.swift in Sources */,
 				04B303192531EAA00030BC26 /* SignUpController.swift in Sources */,
+				0473A43D2556F24D00515B49 /* User.swift in Sources */,
 				048385F625309F910082B17D /* AppDelegate.swift in Sources */,
+				0473A440255726B700515B49 /* LocationService.swift in Sources */,
 				042B612F2553200D00FFBA8C /* HomeViewController.swift in Sources */,
 				048385F825309F910082B17D /* SceneDelegate.swift in Sources */,
 				04D4DCF32554770B00145198 /* InputView.swift in Sources */,

@@ -14,8 +14,9 @@ import MapKit
 class HomeViewController: UIViewController {
 	
 	//MARK: Properties
+	
 	private let mapView 		  = MKMapView()
-	private let locationManager   = CLLocationManager()
+	private let locationManager   = LocationService.shared.locationManager
 	private	let inputViews		  = InputView()
 	private let menuIcon          = UIButton.init(SFSymbols.menu)
 	private let locationInputView = ShowLocationInputView()
@@ -23,28 +24,47 @@ class HomeViewController: UIViewController {
 	private let cellID			  = "cellID"
 	
 	private let heightOfLocationInputView : CGFloat = 200
+	var user : User? {
+		didSet {
+			self.locationInputView.user = user
+		}
+	}
+
+
 	
+
 	//MARK: LifeCycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		checkIfUserLoggedIn()
 //		signOut()
 		setupNavigation()
-		creatUI()
+//		creatUI()
 		enableLocationAuthorition()
+		fetchUser()
 	}
+
 }
 
 //MARK: Service Firebase
 extension HomeViewController {
+	
+	func fetchUser() {
+		Service.shared.fetchUserData { (user) in
+			self.user = user
+		}
+	}
+	
 	fileprivate func checkIfUserLoggedIn() {
-
 		if Auth.auth().currentUser?.uid == nil {
-				let loginController = UINavigationController(rootViewController: LoginController())
-				loginController.modalPresentationStyle = .overFullScreen
-				present(loginController, animated: true)
+				let loginController = LoginController()
+				loginController.homeController = self
+				let controller = UINavigationController(rootViewController: loginController)
+				controller.modalPresentationStyle = .overFullScreen
+				present(controller, animated: true)
 		} else {
 			creatUI()
+			fetchUser()
 		}
 	}
 	
@@ -155,31 +175,27 @@ extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 }
 
 //MARK:  LoactionService
-extension HomeViewController: CLLocationManagerDelegate {
-	
+extension HomeViewController {
 	func enableLocationAuthorition() {
-		locationManager.delegate = self
-		switch locationManager.authorizationStatus {
+		switch locationManager?.authorizationStatus {
 		case .notDetermined:
 			print("Not Determined")
-			locationManager.requestWhenInUseAuthorization()
+			locationManager?.requestWhenInUseAuthorization()
 		case .restricted,.denied:
 			print("user denied")
 		case .authorizedAlways:
 			print("authorize")
-			locationManager.stopUpdatingLocation()
-			locationManager.desiredAccuracy = kCLLocationAccuracyBest
+			locationManager?.stopUpdatingLocation()
+			locationManager?.desiredAccuracy = kCLLocationAccuracyBest
 		case .authorizedWhenInUse:
 			print(" When in use authorize")
-			locationManager.requestAlwaysAuthorization()
+			locationManager?.requestAlwaysAuthorization()
+		case .none:
+			break
 		@unknown default:
 			break
 		}
 	}
 	
-	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		if status == .authorizedWhenInUse {
-			locationManager.requestAlwaysAuthorization()
-		}
-	}
+	
 }
