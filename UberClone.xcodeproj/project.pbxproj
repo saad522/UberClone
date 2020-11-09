@@ -11,6 +11,7 @@
 		0407223C2530FEA400EB9A90 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040722392530FEA400EB9A90 /* Extensions.swift */; };
 		0407223D2530FEA400EB9A90 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0407223A2530FEA400EB9A90 /* VerticalStackView.swift */; };
 		041C38CC2530C1980014733E /* HStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C38CB2530C1980014733E /* HStackView.swift */; };
+		042370BD25599EDB00E45215 /* DriverAnnotaion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042370BC25599EDB00E45215 /* DriverAnnotaion.swift */; };
 		042B612F2553200D00FFBA8C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042B612E2553200D00FFBA8C /* HomeViewController.swift */; };
 		0454F1142555E0760088524A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0454F1132555E0760088524A /* TableViewCell.swift */; };
 		0473A4392556F14400515B49 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0473A4382556F14400515B49 /* Service.swift */; };
@@ -34,6 +35,7 @@
 		040722392530FEA400EB9A90 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		0407223A2530FEA400EB9A90 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		041C38CB2530C1980014733E /* HStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackView.swift; sourceTree = "<group>"; };
+		042370BC25599EDB00E45215 /* DriverAnnotaion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotaion.swift; sourceTree = "<group>"; };
 		042B612E2553200D00FFBA8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0454F1132555E0760088524A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		0473A4382556F14400515B49 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				0473A43C2556F24D00515B49 /* User.swift */,
+				042370BC25599EDB00E45215 /* DriverAnnotaion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				0473A4392556F14400515B49 /* Service.swift in Sources */,
 				041C38CC2530C1980014733E /* HStackView.swift in Sources */,
 				0407223C2530FEA400EB9A90 /* Extensions.swift in Sources */,
+				042370BD25599EDB00E45215 /* DriverAnnotaion.swift in Sources */,
 				048386182530A3B40082B17D /* LoginController.swift in Sources */,
 				04D4DCF925548FA900145198 /* ShowLocationInputView.swift in Sources */,
 				04D4DCF62554782F00145198 /* SFSymbols.swift in Sources */,

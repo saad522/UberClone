@@ -15,53 +15,77 @@ class HomeViewController: UIViewController {
 	
 	//MARK: Properties
 	
-	private let mapView 		  = MKMapView()
-	private let locationManager   = LocationService.shared.locationManager
-	private	let inputViews		  = InputView()
-	private let menuIcon          = UIButton.init(SFSymbols.menu)
-	private let locationInputView = ShowLocationInputView()
-	private let tableView		  = UITableView()
-	private let cellID			  = "cellID"
-	
+	private let mapView 		   = MKMapView()
+	private let locationManager    = LocationService.shared.locationManager
+	private	let inputViews		   = InputView()
+	private let menuIcon           = UIButton.init(SFSymbols.menu)
+	private let locationInputView  = ShowLocationInputView()
+	private let tableView		   = UITableView()
+	private let cellID			   = "cellID"
+	private let annotationDriverID = "annotationDriverID"
 	private let heightOfLocationInputView : CGFloat = 200
 	var user : User? {
 		didSet {
 			self.locationInputView.user = user
 		}
 	}
-
-
 	
-
+	
+	
+	
 	//MARK: LifeCycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		checkIfUserLoggedIn()
-//		signOut()
+		//		signOut()
 		setupNavigation()
-//		creatUI()
+		//		creatUI()
 		enableLocationAuthorition()
 		fetchUser()
+		fetchDriverData()
 	}
-
+	
 }
 
 //MARK: Service Firebase
 extension HomeViewController {
 	
+	func fetchDriverData() {
+		guard let location = locationManager?.location else { return }
+		Service.shared.fetchDriverData(with: location) { (driver) in
+			guard let coordinate = driver.location?.coordinate else { return }
+			let annotation = DriverAnnotaion(uid: driver.uid, coordinate: coordinate)
+			print("Driver Coordinate : \(coordinate)")
+			var driverIsVisible : Bool {
+				return self.mapView.annotations.contains { annotation -> Bool in
+					guard let driverAnnotaion = annotation as? DriverAnnotaion else  { return false }
+						if driverAnnotaion.uid == driver.uid {
+							driverAnnotaion.updateDriverCoordinate(coordinate: coordinate)
+							return true
+						}
+					return false
+				}
+			}
+			if !driverIsVisible {
+				self.mapView.addAnnotation(annotation)
+			}
+			
+		}
+	}
 	func fetchUser() {
-		Service.shared.fetchUserData { (user) in
+		guard let userId = Auth.auth().currentUser?.uid else { return }
+		Service.shared.fetchUserData(with: userId) { (user) in
 			self.user = user
 		}
 	}
 	
 	fileprivate func checkIfUserLoggedIn() {
 		if Auth.auth().currentUser?.uid == nil {
-				let loginController = LoginController()
-				loginController.homeController = self
-				let controller = UINavigationController(rootViewController: loginController)
-				controller.modalPresentationStyle = .overFullScreen
-				present(controller, animated: true)
+			let loginController = LoginController()
+			loginController.homeController = self
+			let controller = UINavigationController(rootViewController: loginController)
+			controller.modalPresentationStyle = .overFullScreen
+			present(controller, animated: true)
 		} else {
 			creatUI()
 			fetchUser()
@@ -103,7 +127,24 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
 		view.addSubview(tableView)
 	}
 }
-//MARK:  setup Create UI with MapView
+//MARK: setup MapView
+extension HomeViewController : MKMapViewDelegate {
+	fileprivate func showUserLocationInMap() {
+		mapView.showsUserLocation = true
+		mapView.userTrackingMode = .follow
+		mapView.delegate = self
+	}
+	
+	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+		if let annotation = annotation as? DriverAnnotaion {
+			let view = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationDriverID)
+			view.image = #imageLiteral(resourceName: "chevron-sign-to-right")
+			return view
+		}
+		return nil
+	}
+}
+//MARK:  setup Create UI
 extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 	
 	func setupNavigation() {
@@ -113,7 +154,7 @@ extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 	func creatUI() {
 		//Add MapView
 		view.addSubview(mapView)
-		mapView.frame = view.frame
+		mapView.frame 	 = view.frame
 		
 		//Add menu icon to the Map
 		mapView.addSubview(menuIcon)
@@ -150,12 +191,9 @@ extension HomeViewController: InputViewDelegate,LocationInputViewDelegate {
 				print("Presting Table View...")
 			}
 		}
-
+		
 	}
-	fileprivate func showUserLocationInMap() {
-		mapView.showsUserLocation = true
-		mapView.userTrackingMode = .follow
-	}
+	
 	func prestenLocationInputView() {
 		inputViews.alpha = 0
 		setupLocationInputUI()

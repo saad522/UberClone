@@ -6,6 +6,8 @@
 //
 
 import Firebase
+import CoreLocation
+import GeoFire
 
 enum ChildType {
 	static let USERS   = "users"
@@ -22,13 +24,26 @@ class Service {
 	static let shared = Service()
 	let userId = Auth.auth().currentUser?.uid
 	
-	func fetchUserData(completion : @escaping(User) -> Void) {
-//		guard let uid = userId else { return }
-		guard let userId = Auth.auth().currentUser?.uid else { return }
+	func fetchUserData(with userId : String,completion : @escaping(User) -> Void) {		
 		REF_USERS.child(userId).observeSingleEvent(of: .value) { (snpachot) in
 			guard let dictionary = snpachot.value as? [String:Any] else {return}
-			let user = User(dectionary: dictionary)
+			let uid = snpachot.key
+			let user = User(uid: uid, dectionary: dictionary)
 			completion(user)
 		}
+	}
+	
+	func fetchDriverData(with location : CLLocation,completion : @escaping(User) -> Void) {
+		let geoFire = GeoFire(firebaseRef: REF_DRIVE_LOCATIONS)
+		REF_DRIVE_LOCATIONS.observe(.value) { (snpashot) in
+			geoFire.query(at: location, withRadius: 50).observe(.keyEntered, with : { (uid, location) in
+				self.fetchUserData(with: uid) { (user) in
+					var driver = user
+					driver.location = location
+					completion(driver)
+				}
+			})
+		}
+		
 	}
 }

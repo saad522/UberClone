@@ -25,7 +25,7 @@ class ShowLocationInputView: UIView {
 	let firstName  				     = UILabel.init(text: "Empty", font: UIFont(name: "HelveticaNeue-Bold", size: 16)!)
 	private let indicatoreGreen      = UIView(.systemGreen,6)
 	private let indicatoreBlack      = UIView(.label,10)
-	private let blackLine 		     = UIView(20, 1)
+	private let blackLine 		     = UIView(30, 1)
 	private let containerOne         = UIView(backgroundColor: .secondarySystemBackground)
 	private let containerTwo     	 = UIView(backgroundColor: .systemFill)
 	private let currentLocationLabel = UITextField.init(placholder: "Current Location.",textColor: .label)
